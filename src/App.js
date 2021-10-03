@@ -7,10 +7,12 @@ function App() {
 
 
   useEffect(() => {
-    fetch('/test').then(res => res.json()).then(data => {
+    fetch('/plans').then(res => res.json()).then(data => {
       setTest(data.test);
     }) 
   }, []);
+
+  console.log(test);
 
   return (
     <div className="App">
