@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     fetch('/plans').then(res => res.json()).then(data => {
-      setTest(data.test);
+      setTest({"plans": data});
     }) 
   }, []);
 
@@ -20,8 +20,8 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
-
-          Now, the test value is {test}!
+          
+          Your plans are: {test["plans"][0].title}!
         </p>
       </header>
     </div>
