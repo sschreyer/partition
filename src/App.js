@@ -37,11 +37,33 @@ function App() {
             <p>loading, loading...</p>
           }
         </p>
+
+        <button onClick={() => make_plan()}>Click to make a plan!</button>
       </header>
+      
     </div>
 
     // TO-DO: Also need to render a field to submit plans.
   );
+}
+
+// make a plan and sent it via a POST request to the backend
+// TO-DO: add parameters to this function and a input form to the app
+// TO-DO: make plans refresh upon making a new plan
+function make_plan() {
+  fetch('/makeplan', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: 'a_title',
+      description: 'yayyy'
+    })
+  }
+  
+  ).then(res => res.json());
 }
 
 export default App;

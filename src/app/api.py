@@ -7,10 +7,9 @@ app = Flask(__name__)
 
 @app.route('/plans', methods=['GET'])
 def display_plans():
-    #partition.make_plan("First plan", "a good plan")
     return dumps(partition.display_plans())
 
-@app.route('/makeplan', methods=['Post'])
+@app.route('/makeplan', methods=['POST'])
 def make_plan():
     args = request.get_json()
     title = args['title']
