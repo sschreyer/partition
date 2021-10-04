@@ -11,6 +11,11 @@ function App() {
     }) 
   }, []);
 
+  // proxy doesn't work properly without this and i dont know why!
+  if (test === 0) {
+    return <p>hi</p>
+  }
+
   const data =[{"name":"test1"},{"name":"test2"}];
 
   return (
