@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// Main application 
 function App() {
-  const [test, setTest] = useState('test');
+  // Setup function to get the plans, and a "loadingState variable"
+  // that will inform the user that the page is loading.
+  const [plans, setPlans] = useState('plans');
   const [loadingState, setLoadingState] = useState('idle');
 
   useEffect(() => {
     fetch('/plans').then(res => res.json()).then(data => {
-      setTest({"plans": data});
+      setPlans({"plans": data});
       setLoadingState('success');
     }) 
   }, []);
@@ -23,7 +26,7 @@ function App() {
           
           {/* If fetching data from the api was successful */}
           { loadingState === 'success' &&
-            <p>Your plans are: {test["plans"].map((p) => 
+            <p>Your plans are: {plans["plans"].map((p) => 
               <li>Plan: {p.title} Descr: {p.description} </li>)}
             </p>
           }
@@ -31,7 +34,7 @@ function App() {
 
           {/* If we haven't fetched the data yet */}
           { loadingState !== 'success' &&
-            <p>loadin, loadin..</p>
+            <p>loading, loading...</p>
           }
         </p>
       </header>

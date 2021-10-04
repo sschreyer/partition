@@ -17,8 +17,6 @@ def display_plans() -> None:
             'title': p.get_title(), 'description': p.get_description()
         })
 
-    print(display)
-
     return display
 
 def delete_plan(p: Plan) -> None:
@@ -34,5 +32,6 @@ def make_plan(title: str, description: str) -> Plan:
     """
     plan = Plan(title, description)
     plans.append(plan)
+    return {}
 
 
