@@ -3,20 +3,15 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const [test, setTest] = useState(0);
+  const [test, setTest] = useState('test');
+  const [loadingState, setLoadingState] = useState('idle');
 
   useEffect(() => {
     fetch('/plans').then(res => res.json()).then(data => {
       setTest({"plans": data});
+      setLoadingState('success');
     }) 
   }, []);
-
-  // proxy doesn't work properly without this and i dont know why!
-  if (test === 0) {
-    return <p>hi</p>
-  }
-
-  const data =[{"name":"test1"},{"name":"test2"}];
 
   return (
     // TO-DO: This can be it's own function, called "render_plans" or such.
@@ -25,8 +20,19 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
+          
+          {/* If fetching data from the api was successful */}
+          { loadingState === 'success' &&
+            <p>Your plans are: {test["plans"].map((p) => 
+              <li>Plan: {p.title} Descr: {p.description} </li>)}
+            </p>
+          }
 
-          Your plans are: {test["plans"].map((p) => <li>Plan: {p.title} Descr: {p.description} </li>)}!
+
+          {/* If we haven't fetched the data yet */}
+          { loadingState !== 'success' &&
+            <p>loadin, loadin..</p>
+          }
         </p>
       </header>
     </div>
