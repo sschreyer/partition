@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// TO-DO: Figure out a way to not rely on a global var
+var currentPlan  = {};
+
 // Main application 
 function App() {
   // Setup function to get the plans, and a "loadingState variable"
@@ -38,7 +41,13 @@ function App() {
           }
         </p>
 
-        <button onClick={() => make_plan()}>Click to make a plan!</button>
+        <form onSubmit={handleSubmit} onChange={handleFormChange}>
+          <label>Title: <input type="text" name="title"/></label>
+          <br />
+          <label>Description: <input type="text" name="description"/></label>
+          <br />
+          <button type="submit">Submit plan</button>
+        </form>
       </header>
       
     </div>
@@ -50,7 +59,7 @@ function App() {
 // make a plan and sent it via a POST request to the backend
 // TO-DO: add parameters to this function and a input form to the app
 // TO-DO: make plans refresh upon making a new plan
-function make_plan() {
+function handleSubmit() {
   fetch('/makeplan', {
     method: 'POST',
     headers: {
@@ -58,12 +67,18 @@ function make_plan() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      title: 'a_title',
-      description: 'yayyy'
+      title: currentPlan['title'],
+      description: currentPlan['description']
     })
-  }
-  
-  ).then(res => res.json());
+  }).then(res => res.json());
+  console.log("yo");
+}
+
+// handles the form changing
+function handleFormChange(event) {
+  const key = event.target.name;
+  const value = event.target.value;
+  currentPlan[key] = value;
 }
 
 export default App;
