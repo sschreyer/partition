@@ -28,6 +28,19 @@
   color: #61dafb;
 }
 
+
+.App-Plan {
+  color: black;
+  background-color: white;
+  justify-content: left;
+  align-items: left;
+} 
+
+.App-Plan:hover {
+  border-color: lightgreen;
+  border-style: solid;
+} 
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

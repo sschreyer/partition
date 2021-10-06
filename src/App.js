@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import Draggable from './app/components/Draggable'
+
 // TO-DO: Figure out a way to not rely on a global var
 var currentPlan  = {};
 
@@ -11,6 +13,8 @@ function App() {
   // that will inform the user that the page is loading.
   const [plans, setPlans] = useState('plans');
   const [loadingState, setLoadingState] = useState('idle');
+  
+
 
   useEffect(() => {
     fetch('/plans').then(res => res.json()).then(data => {
@@ -26,27 +30,32 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
+        </p>
+
+        <div key="data">
           
           {/* If fetching data from the api was successful */}
           { loadingState === 'success' &&
-            <p>Your plans are: {plans["plans"].map((p) => 
-              <li>Plan: {p.title} Descr: {p.description} </li>)}
+            <p>Your plans are:  
+              <Draggable plans={plans}/>
+              {/* <li draggable="true" className="App-Plan">Plan: {p['title']}, Descr: {p['description']} </li>)} */}
             </p>
           }
 
 
           {/* If we haven't fetched the data yet */}
           { loadingState !== 'success' &&
-            <p>loading, loading...</p>
+            <p>loading, loading...(try refreshing the page)</p>
           }
-        </p>
+        </div>
 
+        {/* App-List is a test for CSS styling */}
         <form onSubmit={handleSubmit} onChange={handleFormChange}>
           <label>Title: <input type="text" name="title"/></label>
           <br />
           <label>Description: <input type="text" name="description"/></label>
           <br />
-          <button type="submit">Submit plan</button>
+          <button draggable="true" type="submit">Submit plan</button>
         </form>
       </header>
       
@@ -71,7 +80,6 @@ function handleSubmit() {
       description: currentPlan['description']
     })
   }).then(res => res.json());
-  console.log("yo");
 }
 
 // handles the form changing
