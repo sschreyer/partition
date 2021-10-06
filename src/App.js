@@ -32,12 +32,12 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
 
-        <div key="data">
+        
           
           {/* If fetching data from the api was successful */}
           { loadingState === 'success' &&
             <p>Your plans are:  
-              <Draggable plans={plans}/>
+              <Draggable data={plans}/>
               {/* <li draggable="true" className="App-Plan">Plan: {p['title']}, Descr: {p['description']} </li>)} */}
             </p>
           }
@@ -47,7 +47,7 @@ function App() {
           { loadingState !== 'success' &&
             <p>loading, loading...(try refreshing the page)</p>
           }
-        </div>
+        
 
         {/* App-List is a test for CSS styling */}
         <form onSubmit={handleSubmit} onChange={handleFormChange}>
