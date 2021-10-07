@@ -18,10 +18,12 @@ function App() {
 
   useEffect(() => {
     fetch('/plans').then(res => res.json()).then(data => {
-      setPlans({"plans": data});
+      setPlans(data);
       setLoadingState('success');
     }) 
   }, []);
+
+  
 
   return (
     // TO-DO: This can be it's own function, called "render_plans" or such.

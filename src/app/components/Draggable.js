@@ -1,5 +1,8 @@
 import React, {useState, useRef} from 'react';
 
+// Component modified from https://github.com/asatraitis/react-hooks-dragndrop
+// The author has a great tutorial on YouTube that I followed:
+// https://www.youtube.com/watch?v=Q1PYQPK9TaM 
 
 function Draggable({data}) {
 
@@ -20,33 +23,33 @@ function Draggable({data}) {
     }
 
 
-    // const handleDragEnter = (e, currPlan) => {
-    //     const currentItem = dragItem.current;
-    //     if (e.target !== dragNode.current) {
-    //         setPlans(oldPlans => {
-    //             // get deep copy of old plans to future-proof code
-    //             let newPlans = JSON.parse(JSON.stringify(oldPlans));
-                
-
-    //             return newPlans;
-    //         });
-    //     }
-    // }
+    const handleDragEnter = (e, planItem) => {
+        const currentItem = dragItem.current;
+        if (e.target !== dragNode.current) {
+            setPlans(oldPlans => {
+                // get deep copy of old plans to future-proof code
+                let newPlans = JSON.parse(JSON.stringify(oldPlans));
+                newPlans.splice(planItem.index, 0, newPlans.splice(currentItem.index,1)[0]);
+                dragItem.current = planItem;
+                return newPlans;
+            });
+        }
+    }
 
     const handleDragEnd = () => {
         setDragging(false);
-        dragNode.current.removeEventListenr("dragend", handleDragEnd);
+        dragNode.current.removeEventListener("dragend", handleDragEnd);
         dragItem.current = null;
         dragNode.current = null;
     }
 
     return (
         <div className="plan-data">
-            {plans["plans"].map((plan, index) => (
+            {plans.map((plan, index) => (
                 // TO-DO: Change className App-Plan to something more appropriate 
                 <li draggable="true" 
                     onDragStart={(e) => handleDragStart(e, {plan, index})} 
-                    // onDragEnter={dragging? (e) => handleDragEnter(e, {plan, index}) : null}
+                    onDragEnter={dragging? (e) => handleDragEnter(e, {plan, index}) : null}
                     className="App-Plan"
                 >
                     Plan: {plan['title']}, Descr: {plan['description']} 
