@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import Draggable from './app/components/Draggable'
@@ -29,7 +28,6 @@ function App() {
     // TO-DO: This can be it's own function, called "render_plans" or such.
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
