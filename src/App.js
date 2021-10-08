@@ -28,9 +28,9 @@ function App() {
     // TO-DO: This can be it's own function, called "render_plans" or such.
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>
+          Partition
+        </h1>
 
         
           
