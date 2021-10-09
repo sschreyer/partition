@@ -22,7 +22,7 @@ function App() {
     }) 
   }, []);
 
-  
+  console.log(plans);
 
   return (
     // TO-DO: This can be it's own function, called "render_plans" or such.
@@ -31,8 +31,6 @@ function App() {
         <h1>
           Partition
         </h1>
-
-        
           
           {/* If fetching data from the api was successful */}
           { loadingState === 'success' &&

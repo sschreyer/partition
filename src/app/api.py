@@ -2,6 +2,7 @@ from flask import Flask, request
 from json import dumps
 
 import partition
+from PlanType import PlanType
 
 app = Flask(__name__)
 
@@ -14,4 +15,6 @@ def make_plan():
     args = request.get_json()
     title = args['title']
     description = args['description']
-    return dumps(partition.make_plan(title, description))
+    # TO-DO: Make this not hardcoded.
+    type_ = PlanType.WORK
+    return dumps(partition.make_plan(title, description, type_))
