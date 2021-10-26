@@ -14,7 +14,9 @@ class Plan:
 
     def get_type(self) -> str:
         # this could be better
+        #print(type(self.type))
         if self.type != None:
+            #print(type(self.type))
             return self.type.name
         return "None"
 

@@ -19,6 +19,7 @@ function Draggable({data}) {
 
         dragNode.current = e.target;
         dragNode.current.addEventListener("dragend", handleDragEnd);
+
         setDragging(true);
     }
 

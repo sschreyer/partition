@@ -19,6 +19,8 @@ def display_plans() -> None:
             'type': p.get_type()
         })
 
+    print(display)
+
     return display
 
 def delete_plan(p: Plan) -> None:

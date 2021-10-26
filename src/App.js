@@ -14,15 +14,12 @@ function App() {
   const [loadingState, setLoadingState] = useState('idle');
   
 
-
   useEffect(() => {
     fetch('/plans').then(res => res.json()).then(data => {
       setPlans(data);
       setLoadingState('success');
     }) 
   }, []);
-
-  console.log(plans);
 
   return (
     // TO-DO: This can be it's own function, called "render_plans" or such.

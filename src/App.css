@@ -39,7 +39,10 @@
 .App-Plan:hover {
   border-color: lightgreen;
   border-style: solid;
+  opacity: 30%;
 } 
+
+
 
 @keyframes App-logo-spin {
   from {
