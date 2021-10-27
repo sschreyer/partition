@@ -3,8 +3,9 @@ import './App.css';
 
 import Draggable from './app/components/Draggable'
 
-// TODO: Figure out a way to not rely on a global var
+// TODO: Figure out a way to not rely on global vars
 var currentPlan  = {};
+var planToDelete = "";
 
 // Main application 
 function App() {
@@ -32,7 +33,12 @@ function App() {
           {/* If fetching data from the api was successful */}
           { loadingState === 'success' &&
             <p>Your plans are:  
-              <Draggable data={plans}/>
+              {/* TODO: setup onclick handler */}
+              {/* TODO: make each Draggable item individual? Need some changes... */}
+              {/* TODO: make each thing a div???  */}
+              <Draggable data={plans} handlePlanClick={
+                (e, plan) => {planToDelete = plan.plan.title}
+              }/>
             </p>
           }
 
@@ -54,6 +60,8 @@ function App() {
           <br />
           <button type="submit">Submit plan</button>
         </form>
+
+        <button onClick={handleDeleteSubmit} type="submit">Delete currently selected plan</button>
       </header>
       
     </div>
@@ -85,6 +93,24 @@ function handleFormChange(event) {
   const key = event.target.name;
   const value = event.target.value;
   currentPlan[key] = value;
+}
+
+function handleDeleteSubmit(event) {
+  fetch('/deleteplan', {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: planToDelete
+    })
+  }).then(res => res.json());
+}
+
+// handling deleting plans
+function handlePlanClick(e, plan) {
+  planToDelete = plan['plan']['title'];
 }
 
 export default App;

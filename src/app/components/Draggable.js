@@ -4,7 +4,9 @@ import React, {useState, useRef} from 'react';
 // The author has a great tutorial on YouTube that I followed:
 // https://www.youtube.com/watch?v=Q1PYQPK9TaM 
 
-function Draggable({data}) {
+// TODO: make this design better. Should not need this. 
+
+function Draggable({data, handlePlanClick}) {
 
     const [plans, setPlans] = useState(data);
     const [dragging, setDragging] = useState(false);
@@ -14,6 +16,7 @@ function Draggable({data}) {
     // the element that we're dragging
     const dragNode = useRef();
 
+    // handling dragging plans
     const handleDragStart = (e, currPlan) => {
         dragItem.current = currPlan;
 
@@ -51,6 +54,7 @@ function Draggable({data}) {
                 <li draggable="true" 
                     onDragStart={(e) => handleDragStart(e, {plan, index})} 
                     onDragEnter={dragging? (e) => handleDragEnter(e, {plan, index}) : null}
+                    onClick = {(e) => handlePlanClick(e, {plan})}
                     className={"App-Plan-" + plan["type"]}
                 >
                     Plan: {plan['title']}, Descr: {plan['description']}, Type: {plan['type']}

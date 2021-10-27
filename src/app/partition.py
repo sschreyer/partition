@@ -21,17 +21,26 @@ def display_plans() -> None:
 
     return display
 
-def delete_plan(p: Plan) -> None:
+def delete_plan(title: str) -> None:
     """
         Delete a given plan from the list
     """
-    pass
+    plan_to_delete = None
+    for p in plans:
+        if p.get_title() == title:
+            plan_to_delete = p
+    
+    if plan_to_delete is not None:
+        plans.remove(p)
+
+    return {}
 
 def make_plan(title: str, description: str, type_: str = None) -> Plan:
     """
         Make a Plan object with the given title and description 
         and add it to the list of plans. 
     """
+    # TODO: ensure only one plan with a given title can be created
     plan = Plan(title, description, type_)
     plans.append(plan)
     return {}

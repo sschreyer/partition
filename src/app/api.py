@@ -17,3 +17,9 @@ def make_plan():
     description = args['description']
     type_ = args['type']
     return dumps(partition.make_plan(title, description, type_))
+
+@app.route('/deleteplan', methods=['DELETE'])
+def delete_plan():
+    args = request.get_json()
+    title = args['title']
+    return dumps(partition.delete_plan(title))
