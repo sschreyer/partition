@@ -3,7 +3,7 @@ import './App.css';
 
 import Draggable from './app/components/Draggable'
 
-// TO-DO: Figure out a way to not rely on a global var
+// TODO: Figure out a way to not rely on a global var
 var currentPlan  = {};
 
 // Main application 
@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   return (
-    // TO-DO: This can be it's own function, called "render_plans" or such.
+    // TODO: This can be it's own function, called "render_plans" or such.
     <div className="App">
       <header className="App-header">
         <h1>
@@ -33,7 +33,6 @@ function App() {
           { loadingState === 'success' &&
             <p>Your plans are:  
               <Draggable data={plans}/>
-              {/* <li draggable="true" className="App-Plan">Plan: {p['title']}, Descr: {p['description']} </li>)} */}
             </p>
           }
 
@@ -50,7 +49,10 @@ function App() {
           <br />
           <label>Description: <input type="text" name="description"/></label>
           <br />
-          <button draggable="true" type="submit">Submit plan</button>
+          {/* TODO: ensure only valid types can be enetered (i.e. use buttons) */}
+          <label>Type: <input type="text" name="type"/></label>
+          <br />
+          <button type="submit">Submit plan</button>
         </form>
       </header>
       
@@ -72,7 +74,8 @@ function handleSubmit() {
     },
     body: JSON.stringify({
       title: currentPlan['title'],
-      description: currentPlan['description']
+      description: currentPlan['description'],
+      type: currentPlan['type']
     })
   }).then(res => res.json());
 }

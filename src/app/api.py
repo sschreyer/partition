@@ -15,5 +15,5 @@ def make_plan():
     args = request.get_json()
     title = args['title']
     description = args['description']
-    type_ = PlanType.WORK
+    type_ = args['type']
     return dumps(partition.make_plan(title, description, type_))

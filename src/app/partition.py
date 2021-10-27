@@ -19,8 +19,6 @@ def display_plans() -> None:
             'type': p.get_type()
         })
 
-    print(display)
-
     return display
 
 def delete_plan(p: Plan) -> None:
@@ -29,12 +27,12 @@ def delete_plan(p: Plan) -> None:
     """
     pass
 
-def make_plan(title: str, description: str, type: PlanType = None) -> Plan:
+def make_plan(title: str, description: str, type_: str = None) -> Plan:
     """
         Make a Plan object with the given title and description 
         and add it to the list of plans. 
     """
-    plan = Plan(title, description)
+    plan = Plan(title, description, type_)
     plans.append(plan)
     return {}
 

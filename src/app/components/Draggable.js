@@ -51,9 +51,9 @@ function Draggable({data}) {
                 <li draggable="true" 
                     onDragStart={(e) => handleDragStart(e, {plan, index})} 
                     onDragEnter={dragging? (e) => handleDragEnter(e, {plan, index}) : null}
-                    className="App-Plan"
+                    className={"App-Plan-" + plan["type"]}
                 >
-                    Plan: {plan['title']}, Descr: {plan['description']} 
+                    Plan: {plan['title']}, Descr: {plan['description']}, Type: {plan['type']}
                 </li>
             ))}
         </div>
