@@ -14,7 +14,7 @@ function App() {
   const [plans, setPlans] = useState('plans');
   const [loadingState, setLoadingState] = useState('idle');
   
-
+  // TODO: Create a function to fetch data from the api on command?
   useEffect(() => {
     fetch('/plans').then(res => res.json()).then(data => {
       setPlans(data);
@@ -33,7 +33,6 @@ function App() {
           {/* If fetching data from the api was successful */}
           { loadingState === 'success' &&
             <p>Your plans are:  
-              {/* TODO: setup onclick handler */}
               {/* TODO: make each Draggable item individual? Need some changes... */}
               {/* TODO: make each thing a div???  */}
               <Draggable data={plans} handlePlanClick={
@@ -50,23 +49,21 @@ function App() {
         
 
         {/* App-List is a test for CSS styling */}
-        <form onSubmit={handleSubmit} onChange={handleFormChange}>
+        <form id="plan_form" onSubmit={handleSubmit} onChange={handleFormChange}>
           <label>Title: <input type="text" name="title"/></label>
           <br />
           <label>Description: <input type="text" name="description"/></label>
           <br />
-          {/* TODO: ensure only valid types can be enetered (i.e. use buttons) */}
-          <label>Type: <input type="text" name="type"/></label>
+          {/* TODO: Add a default option? */}
+          <label>Type: <input onClick={handleTypeButtonClick} type="button" name="type" value="WORK"/></label>
           <br />
-          <button type="submit">Submit plan</button>
+          <button form="plan_form" type="submit">Submit plan</button>
         </form>
 
         <button onClick={handleDeleteSubmit} type="submit">Delete currently selected plan</button>
       </header>
       
     </div>
-
-    // TO-DO: Also need to render a field to submit plans.
   );
 }
 
@@ -95,6 +92,12 @@ function handleFormChange(event) {
   currentPlan[key] = value;
 }
 
+function handleTypeButtonClick(event) {
+  const key = event.target.name;
+  const value = event.target.value;
+  currentPlan[key] = value;
+}
+
 function handleDeleteSubmit(event) {
   fetch('/deleteplan', {
     method: 'DELETE',
@@ -106,11 +109,6 @@ function handleDeleteSubmit(event) {
       title: planToDelete
     })
   }).then(res => res.json());
-}
-
-// handling deleting plans
-function handlePlanClick(e, plan) {
-  planToDelete = plan['plan']['title'];
 }
 
 export default App;
