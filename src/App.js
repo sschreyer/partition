@@ -6,6 +6,7 @@ import Draggable from './app/components/Draggable'
 // TODO: Figure out a way to not rely on global vars
 var currentPlan  = {};
 var planToDelete = "";
+var prevSelectedPlan;
 
 // Main application 
 function App() {
@@ -36,7 +37,14 @@ function App() {
               {/* TODO: make each Draggable item individual? Need some changes... */}
               {/* TODO: make each thing a div???  */}
               <Draggable data={plans} handlePlanClick={
-                (e, plan) => {planToDelete = plan.plan.title}
+                (e, plan) => {
+                  if (prevSelectedPlan) {
+                    prevSelectedPlan.style["background-color"] = "white";
+                  }
+                  e.target.style["background-color"] = "lime";
+                  planToDelete = plan.plan.title;
+                  prevSelectedPlan = e.target;
+                }
               }/>
             </p>
           }
@@ -49,13 +57,16 @@ function App() {
         
 
         {/* App-List is a test for CSS styling */}
-        <form id="plan_form" onSubmit={handleSubmit} onChange={handleFormChange}>
+        <form id="plan_form" className="plan_form" onSubmit={handleSubmit} onChange={handleFormChange}>
           <label>Title: <input type="text" name="title"/></label>
           <br />
           <label>Description: <input type="text" name="description"/></label>
           <br />
           {/* TODO: Add a default option? */}
-          <label>Type: <input onClick={handleTypeButtonClick} type="button" name="type" value="WORK"/></label>
+          <label>Type: 
+            <br />
+            WORK: <input onClick={handleTypeButtonClick} type="radio" name="type" value="WORK"/>
+          </label>
           <br />
           <button form="plan_form" type="submit">Submit plan</button>
         </form>
