@@ -28,10 +28,23 @@
 .App-Plan-WORK:hover {
   border-color: lightgreen;
   border-style: solid;
-  opacity: 30%;
+  opacity: 70%;
 }
 
 .App-Plan-WORK {
+  color: black;
+  background-color: white;
+  justify-content: left;
+  align-items: left;
+} 
+
+.App-Plan-HOME:hover {
+  border-color: blueviolet;
+  border-style: solid;
+  opacity: 70%;
+}
+
+.App-Plan-HOME {
   color: black;
   background-color: white;
   justify-content: left;

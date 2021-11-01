@@ -40,10 +40,18 @@ function App() {
                 (e, plan) => {
                   if (prevSelectedPlan) {
                     prevSelectedPlan.style["background-color"] = "white";
+                  } 
+
+                  // If a user has clicked on the same plan again, 
+                  // keep it white.
+                  if (prevSelectedPlan !== e.target) {
+                    e.target.style["background-color"] = "lime";
+                    planToDelete = plan.plan.title;
+                    prevSelectedPlan = e.target;
+                  } else {
+                    prevSelectedPlan = null;
+                    planToDelete = null;
                   }
-                  e.target.style["background-color"] = "lime";
-                  planToDelete = plan.plan.title;
-                  prevSelectedPlan = e.target;
                 }
               }/>
             </p>
@@ -65,13 +73,14 @@ function App() {
           {/* TODO: Add a default option? */}
           <label>Type: 
             <br />
-            WORK: <input onClick={handleTypeButtonClick} type="radio" name="type" value="WORK"/>
+            WORK: <input onClick={handleTypeButtonClick} checked="checked" type="radio" name="type" value="WORK"/>
+            HOME: <input onClick={handleTypeButtonClick} type="radio" name="type" value="HOME"/>
           </label>
           <br />
           <button form="plan_form" type="submit">Submit plan</button>
         </form>
 
-        <button onClick={handleDeleteSubmit} type="submit">Delete currently selected plan</button>
+        <button onClick={handleDeleteSubmit} type="submit" checked="true">Delete currently selected plan</button>
       </header>
       
     </div>
@@ -91,7 +100,7 @@ function handleSubmit() {
     body: JSON.stringify({
       title: currentPlan['title'],
       description: currentPlan['description'],
-      type: currentPlan['type']
+      type: currentPlan['type'] == null ? "WORK" : currentPlan['type'],
     })
   }).then(res => res.json());
 }

@@ -4,8 +4,6 @@ import React, {useState, useRef} from 'react';
 // The author has a great tutorial on YouTube that I followed:
 // https://www.youtube.com/watch?v=Q1PYQPK9TaM 
 
-// TODO: make this design better. Should not need this. 
-
 function Draggable({data, handlePlanClick}) {
 
     const [plans, setPlans] = useState(data);
