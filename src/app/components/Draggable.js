@@ -8,14 +8,35 @@ function Draggable({data, handlePlanClick}) {
 
     const [plans, setPlans] = useState(data);
     const [dragging, setDragging] = useState(false);
+    const [hoverPlan, setHoverPlan] = useState(null);
 
     // data that we're dragging
     const dragItem = useRef();
     // the element that we're dragging
     const dragNode = useRef();
 
+    const handlePlanHover = (e) => {
+        console.log("hiiii\n");
+        if (dragging) {
+            console.log("we're dragging!!!");
+            return;
+        }
+
+        if (hoverPlan) {
+            hoverPlan.classList.remove("App-Plan-HOVER");
+        }
+
+        e.target.classList.add("App-Plan-HOVER");
+        setHoverPlan(e.target);
+    }
+
     // handling dragging plans
     const handleDragStart = (e, currPlan) => {
+        // ensure that no plan is highlighted
+        if (hoverPlan) {
+            hoverPlan.classList.remove("App-Plan-HOVER");
+        }
+
         dragItem.current = currPlan;
 
         dragNode.current = e.target;
@@ -27,15 +48,13 @@ function Draggable({data, handlePlanClick}) {
 
     const handleDragEnter = (e, planItem) => {
         const currentItem = dragItem.current;
-        if (e.target !== dragNode.current) {
-            setPlans(oldPlans => {
-                // get deep copy of old plans to future-proof code
-                let newPlans = JSON.parse(JSON.stringify(oldPlans));
-                newPlans.splice(planItem.index, 0, newPlans.splice(currentItem.index,1)[0]);
-                dragItem.current = planItem;
-                return newPlans;
-            });
-        }
+        setPlans(oldPlans => {
+            // get deep copy of old plans to future-proof code
+            let newPlans = JSON.parse(JSON.stringify(oldPlans));
+            newPlans.splice(planItem.index, 0, newPlans.splice(currentItem.index,1)[0]);
+            dragItem.current = planItem;
+            return newPlans;
+        });
     }
 
     const handleDragEnd = () => {
@@ -53,6 +72,7 @@ function Draggable({data, handlePlanClick}) {
                     onDragStart={(e) => handleDragStart(e, {plan, index})} 
                     onDragEnter={dragging? (e) => handleDragEnter(e, {plan, index}) : null}
                     onClick = {(e) => handlePlanClick(e, {plan})}
+                    onMouseEnter = {(e) => handlePlanHover(e)}
                     className={"App-Plan App-Plan-" + plan["type"]}
                 >
                     Plan: {plan['title']}, Descr: {plan['description']}, Type: {plan['type']}

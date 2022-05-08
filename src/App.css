@@ -26,9 +26,7 @@
   opacity: 70%;
 } 
 
-.App-Plan-WORK:hover {
-  border-color: lightgreen;
-  border-style: solid;
+.App-Plan-HOVER {
   opacity: 100%;
 }
 
@@ -38,12 +36,6 @@
   justify-content: left;
   align-items: left;
 } 
-
-.App-Plan-HOME:hover {
-  border-color: blueviolet;
-  border-style: solid;
-  opacity: 100%;
-}
 
 .App-Plan-HOME {
   color: black;
