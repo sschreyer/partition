@@ -23,12 +23,13 @@
   background-color: white;
   justify-content: left;
   align-items: left;
+  opacity: 70%;
 } 
 
 .App-Plan-WORK:hover {
   border-color: lightgreen;
   border-style: solid;
-  opacity: 70%;
+  opacity: 100%;
 }
 
 .App-Plan-WORK {
@@ -41,7 +42,7 @@
 .App-Plan-HOME:hover {
   border-color: blueviolet;
   border-style: solid;
-  opacity: 70%;
+  opacity: 100%;
 }
 
 .App-Plan-HOME {

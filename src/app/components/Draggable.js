@@ -53,7 +53,7 @@ function Draggable({data, handlePlanClick}) {
                     onDragStart={(e) => handleDragStart(e, {plan, index})} 
                     onDragEnter={dragging? (e) => handleDragEnter(e, {plan, index}) : null}
                     onClick = {(e) => handlePlanClick(e, {plan})}
-                    className={"App-Plan-" + plan["type"]}
+                    className={"App-Plan App-Plan-" + plan["type"]}
                 >
                     Plan: {plan['title']}, Descr: {plan['description']}, Type: {plan['type']}
                 </li>

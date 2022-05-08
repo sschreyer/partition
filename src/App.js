@@ -70,7 +70,6 @@ function App() {
           <br />
           <label>Description: <input type="text" name="description"/></label>
           <br />
-          {/* TODO: Add a default option? */}
           <label>Type: 
             <br />
             WORK: <input onClick={handleTypeButtonClick} checked="checked" type="radio" name="type" value="WORK"/>
