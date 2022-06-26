@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import DraggableList from 'react-draggable-list';
 import './App.css';
 
-import Draggable from './app/components/Draggable'
 
 // TODO: Figure out a way to not rely on global vars
 var currentPlan  = {};
@@ -12,7 +12,7 @@ var prevSelectedPlan;
 function App() {
   // Setup function to get the plans, and a "loadingState variable"
   // that will inform the user that the page is loading.
-  const [plans, setPlans] = useState('plans');
+  const [plans, setPlans] = useState([]);
   const [loadingState, setLoadingState] = useState('idle');
   
   // TODO: Create a function to fetch data from the api on command?
@@ -36,7 +36,27 @@ function App() {
             <p>Your plans are:  
               {/* TODO: make each Draggable item individual? Need some changes... */}
               {/* TODO: make each thing a div???  */}
-              <Draggable data={plans} handlePlanClick={
+              <div className="plan-data">
+                
+                  // TO-DO: Change className App-Plan to something more appropriate 
+                  <DraggableList
+                    width={"50%"}
+                    height={"30%"}
+                    rowSize={1}
+                  >
+                    {plans ? plans.map((plan, index) => (
+                      <li className={"App-Plan App-Plan-" + plan["type"]}>
+                          Plan: {plan['title']}, Descr: {plan['description']}, Type: {plan['type']}
+                      </li>))
+                      : <div>No plans yet :(</div>
+                    }
+                  </DraggableList>
+                
+              </div>
+
+
+
+              {/* <Draggable data={plans} handlePlanClick={
                 (e, plan) => {
                   if (prevSelectedPlan) {
                     prevSelectedPlan.style["background-color"] = "white";
@@ -53,7 +73,7 @@ function App() {
                     planToDelete = null;
                   }
                 }
-              }/>
+              }/> */}
             </p>
           }
 
@@ -76,10 +96,10 @@ function App() {
             HOME: <input onClick={handleTypeButtonClick} type="radio" name="type" value="HOME"/>
           </label>
           <br />
-          <button form="plan_form" type="submit">Submit plan</button>
+          <button className="button" form="plan_form" type="submit">Submit plan</button>
         </form>
 
-        <button onClick={handleDeleteSubmit} type="submit" checked="true">Delete currently selected plan</button>
+        <button className="button button-delete" onClick={handleDeleteSubmit} type="submit" checked="true">Delete currently selected plan</button>
       </header>
       
     </div>
